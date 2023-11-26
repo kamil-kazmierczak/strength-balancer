@@ -24,15 +24,15 @@ const MyModal = ({ show, setShow, onSquatChange }) => {
     return (
         <Modal show={show} onHide={() => setShow(false)}>
             <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
+                <Modal.Title>Change your weightlifting record</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form id="formId" onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="squatValue">
-                        <Form.Label>Squat</Form.Label>
+                        <Form.Label>Squat [kg]</Form.Label>
                         <Form.Control
                             type="number"
-                            placeholder="120"
+                            placeholder="Type in your record here..."
                             autoFocus
                             value={formData.squatValue}
                             onChange={handleChange}

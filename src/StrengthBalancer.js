@@ -15,13 +15,13 @@ const StrengthBalancer = () => {
     const dipsMultiplier = 0.7875;
 
     const initialValues = {
-        squat: 0.0,
-        frontsquat: 0.0,
-        deadlift: 0.0,
-        benchpress: 0.0,
-        militarypress: 0.0,
-        pullups: 0.0,
-        dips: 0.0,
+        squat: 0,
+        frontsquat: 0,
+        deadlift: 0,
+        benchpress: 0,
+        militarypress: 0,
+        pullups: 0,
+        dips: 0,
     }
 
     const [liftsGoals, setLiftsGoals] = useState(initialValues);
@@ -30,16 +30,16 @@ const StrengthBalancer = () => {
     const onChangeSquatValueHandler = (value) => {
         setLiftsGoals(prevState => ({
             ...prevState,
-            squat: value,
+            squat: value.toFixed(0),
         }))
         setLiftsGoals(prevState => ({
             ...prevState,
-            frontsquat: frontSquatMultiplier * prevState.squat,
-            deadlift: deadLiftMultiplier * prevState.squat,
-            benchpress: benchPressMultiplier * prevState.squat,
-            militarypress: militaryPressMultiplier * prevState.squat,
-            pullups: pullUpsMultiplier * prevState.squat,
-            dips: dipsMultiplier * prevState.squat,
+            frontsquat: (frontSquatMultiplier * prevState.squat).toFixed(0),
+            deadlift: (deadLiftMultiplier * prevState.squat).toFixed(0),
+            benchpress: (benchPressMultiplier * prevState.squat).toFixed(0),
+            militarypress: (militaryPressMultiplier * prevState.squat).toFixed(0),
+            pullups: (pullUpsMultiplier * prevState.squat).toFixed(0),
+            dips: (dipsMultiplier * prevState.squat).toFixed(0),
         }))
     }
 
@@ -83,7 +83,7 @@ const StrengthBalancer = () => {
                 </tr>
                 </tbody>
             </Table>
-            <Button onClick={() => setShowDialog(true)}>Change</Button>
+            <Button onClick={() => setShowDialog(true)}>Change your record</Button>
             <MyModal show={showDialog} setShow={setShowDialog} onSquatChange={onChangeSquatValueHandler} />
         </>
     );
