@@ -27,13 +27,10 @@ const StrengthBalancer = () => {
     const [liftsGoals, setLiftsGoals] = useState(initialValues);
     const [showDialog, setShowDialog] = useState(false);
 
-    const onChangeSquatValueHandler = () => {
-        let some = document.getElementById('squat').value;
-        const squatInputNumber = Number(some)
-
+    const onChangeSquatValueHandler = (value) => {
         setLiftsGoals(prevState => ({
             ...prevState,
-            squat: squatInputNumber,
+            squat: value,
         }))
         setLiftsGoals(prevState => ({
             ...prevState,
@@ -87,7 +84,7 @@ const StrengthBalancer = () => {
                 </tbody>
             </Table>
             <Button onClick={() => setShowDialog(true)}>Change</Button>
-            <MyModal show={showDialog} setShow={setShowDialog} />
+            <MyModal show={showDialog} setShow={setShowDialog} onSquatChange={onChangeSquatValueHandler} />
         </>
     );
 }
