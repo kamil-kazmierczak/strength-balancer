@@ -2,7 +2,17 @@ import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import {Button, Col, Container, Row, Table} from "react-bootstrap";
-import MyModal from "./components/MyModal";
+import ChangeRecordModal from "./components/ChangeRecordModal";
+
+const exercises = [
+    { multiplier: 1.0, code: 'squat', name: 'Classic Squat'},
+    { multiplier: .85, code: 'frontsquat', name: 'Front Squat'},
+    { multiplier: 1.2, code: 'deadlift', name: 'Dead Lift'},
+    { multiplier: .75, code: 'benchpress', name: 'Bench Press'},
+    { multiplier: .45, code: 'militarypress', name: 'OHP'},
+    { multiplier: .675, code: 'pullups', name: 'Pull Ups'},
+    { multiplier: .7875, code: 'dips', name: 'Dips'}
+];
 
 const StrengthBalancer = () => {
 
@@ -27,20 +37,21 @@ const StrengthBalancer = () => {
     const [liftsGoals, setLiftsGoals] = useState(initialValues);
     const [showDialog, setShowDialog] = useState(false);
 
-    const onChangeSquatValueHandler = (value) => {
-        setLiftsGoals(prevState => ({
-            ...prevState,
-            squat: value.toFixed(0),
-        }))
-        setLiftsGoals(prevState => ({
-            ...prevState,
-            frontsquat: (frontSquatMultiplier * prevState.squat).toFixed(0),
-            deadlift: (deadLiftMultiplier * prevState.squat).toFixed(0),
-            benchpress: (benchPressMultiplier * prevState.squat).toFixed(0),
-            militarypress: (militaryPressMultiplier * prevState.squat).toFixed(0),
-            pullups: (pullUpsMultiplier * prevState.squat).toFixed(0),
-            dips: (dipsMultiplier * prevState.squat).toFixed(0),
-        }))
+    const onChangeRecordHandler = (code, value) => {
+        let currentExercise = exercises.find(e => code === e.code)
+
+        console.log('code', code)
+        console.log('value', value)
+
+        setLiftsGoals({
+            squat: (squatMultiplier / currentExercise.multiplier * value).toFixed(0),
+            frontsquat: (frontSquatMultiplier / currentExercise.multiplier * value).toFixed(0),
+            deadlift: (deadLiftMultiplier / currentExercise.multiplier * value).toFixed(0),
+            benchpress: (benchPressMultiplier / currentExercise.multiplier * value).toFixed(0),
+            militarypress: (militaryPressMultiplier / currentExercise.multiplier * value).toFixed(0),
+            pullups: (pullUpsMultiplier / currentExercise.multiplier * value).toFixed(0),
+            dips: (dipsMultiplier / currentExercise.multiplier * value).toFixed(0),
+        })
     }
 
     return (
@@ -84,7 +95,7 @@ const StrengthBalancer = () => {
                 </tbody>
             </Table>
             <Button onClick={() => setShowDialog(true)}>Change your record</Button>
-            <MyModal show={showDialog} setShow={setShowDialog} onSquatChange={onChangeSquatValueHandler} />
+            <ChangeRecordModal show={showDialog} setShow={setShowDialog} onRecordChange={onChangeRecordHandler} />
         </>
     );
 }
