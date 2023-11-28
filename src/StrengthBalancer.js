@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
-import {Button, Col, Container, Row, Table} from "react-bootstrap";
+import {Button, Table} from "react-bootstrap";
 import ChangeRecordModal from "./components/ChangeRecordModal";
 
 const exercises = [
@@ -39,9 +39,6 @@ const StrengthBalancer = () => {
 
     const onChangeRecordHandler = (code, value) => {
         let currentExercise = exercises.find(e => code === e.code)
-
-        console.log('code', code)
-        console.log('value', value)
 
         setLiftsGoals({
             squat: (squatMultiplier / currentExercise.multiplier * value).toFixed(0),

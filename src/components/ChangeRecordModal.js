@@ -20,40 +20,30 @@ const ChangeRecordModal = ({show, setShow, onRecordChange}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault() // zapobiega przeladowaniu strony ;)
-
-        console.log('formData', formData)
-
-
         onRecordChange(formData.code, Number(formData.value))
     }
 
-    const hideDialog = () => setShow(false);
+    const hideDialog = () => {
+        setShow(false);
+    }
 
     const handleCodeChange = (e) => {
         const code = e.target.value;
 
-        console.log('codeChange', e.target.value)
-
         setFormData(prevState => ({
             ...prevState,
             code: code,
+            value: ''
         }));
-
-        console.log('formData', formData)
     };
 
     const handleValueChange = (e) => {
         const value = e.target.value;
 
-        console.log('valueChange', e.target.value)
-
-
         setFormData(prevState => ({
             ...prevState,
             value: value
         }));
-
-        console.log('formData', formData)
     };
 
 
