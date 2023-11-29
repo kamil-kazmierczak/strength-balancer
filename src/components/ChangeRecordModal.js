@@ -1,15 +1,6 @@
 import {Button, Form, Modal} from "react-bootstrap";
 import {useState} from "react";
-
-const exercises = [
-    {multiplier: 1.0, code: 'squat', name: 'Classic Squat'},
-    {multiplier: .85, code: 'frontsquat', name: 'Front Squat'},
-    {multiplier: 1.2, code: 'deadlift', name: 'Dead Lift'},
-    {multiplier: .75, code: 'benchpress', name: 'Bench Press'},
-    {multiplier: .45, code: 'militarypress', name: 'OHP'},
-    {multiplier: .675, code: 'pullups', name: 'Pull Ups'},
-    {multiplier: .7875, code: 'dips', name: 'Dips'}
-];
+import EXERCISES from "../constants/exercises";
 
 const ChangeRecordModal = ({show, setShow, onRecordChange}) => {
 
@@ -59,12 +50,9 @@ const ChangeRecordModal = ({show, setShow, onRecordChange}) => {
                         <Form.Select value={formData.code} onChange={handleCodeChange}
                                      aria-label="Default select example">
                             {
-                                exercises.map(exercise => {
-                                    return (
-                                        <option value={exercise.code}>{exercise.name}</option>
-                                    );
-                                })}
-
+                                [...EXERCISES.keys()].map(key=> (<option key={key}
+                                                value={key}>{EXERCISES.get(key).selectorLabel}</option>))
+                            }
                         </Form.Select>
 
                         <Form.Control

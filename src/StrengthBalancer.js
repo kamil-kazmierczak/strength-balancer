@@ -3,26 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import {Button, Table} from "react-bootstrap";
 import ChangeRecordModal from "./components/ChangeRecordModal";
-
-const exercises = [
-    { multiplier: 1.0, code: 'squat', name: 'Classic Squat'},
-    { multiplier: .85, code: 'frontsquat', name: 'Front Squat'},
-    { multiplier: 1.2, code: 'deadlift', name: 'Dead Lift'},
-    { multiplier: .75, code: 'benchpress', name: 'Bench Press'},
-    { multiplier: .45, code: 'militarypress', name: 'OHP'},
-    { multiplier: .675, code: 'pullups', name: 'Pull Ups'},
-    { multiplier: .7875, code: 'dips', name: 'Dips'}
-];
+import EXERCISES from "./constants/exercises";
 
 const StrengthBalancer = () => {
-
-    const squatMultiplier = 1.0;
-    const frontSquatMultiplier = 0.85;
-    const deadLiftMultiplier = 1.2;
-    const benchPressMultiplier = 0.75;
-    const militaryPressMultiplier = 0.45;
-    const pullUpsMultiplier = 0.675;
-    const dipsMultiplier = 0.7875;
 
     const initialValues = {
         squat: 0,
@@ -38,16 +21,16 @@ const StrengthBalancer = () => {
     const [showDialog, setShowDialog] = useState(false);
 
     const onChangeRecordHandler = (code, value) => {
-        let currentExercise = exercises.find(e => code === e.code)
+        let selectedExerciseCode = [...EXERCISES.keys()].find(e => code === e)
 
         setLiftsGoals({
-            squat: (squatMultiplier / currentExercise.multiplier * value).toFixed(0),
-            frontsquat: (frontSquatMultiplier / currentExercise.multiplier * value).toFixed(0),
-            deadlift: (deadLiftMultiplier / currentExercise.multiplier * value).toFixed(0),
-            benchpress: (benchPressMultiplier / currentExercise.multiplier * value).toFixed(0),
-            militarypress: (militaryPressMultiplier / currentExercise.multiplier * value).toFixed(0),
-            pullups: (pullUpsMultiplier / currentExercise.multiplier * value).toFixed(0),
-            dips: (dipsMultiplier / currentExercise.multiplier * value).toFixed(0),
+            squat: (EXERCISES.get('squat').multiplierValue / EXERCISES.get(selectedExerciseCode).multiplierValue * value).toFixed(0),
+            frontsquat: (EXERCISES.get('frontsquat').multiplierValue / EXERCISES.get(selectedExerciseCode).multiplierValue * value).toFixed(0),
+            deadlift: (EXERCISES.get('deadlift').multiplierValue / EXERCISES.get(selectedExerciseCode).multiplierValue * value).toFixed(0),
+            benchpress: (EXERCISES.get('benchpress').multiplierValue / EXERCISES.get(selectedExerciseCode).multiplierValue * value).toFixed(0),
+            militarypress: (EXERCISES.get('militarypress').multiplierValue / EXERCISES.get(selectedExerciseCode).multiplierValue * value).toFixed(0),
+            pullups: (EXERCISES.get('pullups').multiplierValue / EXERCISES.get(selectedExerciseCode).multiplierValue * value).toFixed(0),
+            dips: (EXERCISES.get('dips').multiplierValue / EXERCISES.get(selectedExerciseCode).multiplierValue * value).toFixed(0),
         })
     }
 
